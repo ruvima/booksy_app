@@ -2,9 +2,9 @@ import 'package:booksy_app/model/book.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
-  final List<Book> _books = [
+  final List<Book> _books = const [
     Book(
       id: 1,
       title: 'El hombre en busca de sentido',
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(5),
+      margin: const EdgeInsets.all(16),
       child: ListView.builder(
         itemCount: _books.length + 2,
         itemBuilder: (BuildContext context, int index) {

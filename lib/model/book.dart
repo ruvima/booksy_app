@@ -5,7 +5,7 @@ class Book {
   final String author;
   final String description;
   final String coverUrl;
-  Book({
+  const Book({
     this.id = 0,
     this.title = '',
     this.author = '',

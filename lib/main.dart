@@ -30,7 +30,7 @@ class BottomNavigationWidget extends StatefulWidget {
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _sections = [
+  static const List<Widget> _sections = [
     HomeScreen(),
     CategoriesScreen(),
   ];
