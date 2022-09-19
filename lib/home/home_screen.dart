@@ -1,3 +1,4 @@
+import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +89,7 @@ class ListItemBook extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(4),
           onTap: () {
-            _openBookDetails(context, _book) {}
+            _openBookDetails(context, _book);
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -132,5 +133,12 @@ class ListItemBook extends StatelessWidget {
     );
   }
 
-  void _openBookDetails(BuildContext context, Book book2) {}
+  void _openBookDetails(BuildContext context, Book book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BookDetailsScreen(book),
+      ),
+    );
+  }
 }
