@@ -1,3 +1,4 @@
+import 'package:booksy_app/bookshelf/bookshelf_screen.dart';
 import 'package:booksy_app/categories/categories_screen.dart';
 import 'package:booksy_app/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   static const List<Widget> _sections = [
     HomeScreen(),
     CategoriesScreen(),
+    BookshelfScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.local_library),
             label: 'Bibliotecaa',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.auto_stories),
+            label: 'Mi Estante',
           ),
         ],
       ),
