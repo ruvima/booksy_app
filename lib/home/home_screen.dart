@@ -1,36 +1,40 @@
 import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
+import 'package:booksy_app/services/book_service.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  final List<Book> _books = const [
-    Book(
-      id: 1,
-      title: 'El hombre en busca de sentido',
-      author: 'Viktor E. Frankl',
-      description:
-          'El hombre en busca de sentido es el estremecedor relato en el que Viktor Frankl nos narra su experiencia en los campos de concentración.',
-      coverUrl: 'assets/images/book1.jpg',
-    ),
-    Book(
-      id: 2,
-      title:
-          'ELos 5 lenguajes del amor (edición en español): El Secreto del Amor Que Perdura',
-      author: 'Gary Chapman',
-      description:
-          'Actualizado para reflejar las complejidades de la relaciones hoy en día, esta edición enseña verdades esenciales que realmente dan resultado; además, presenta consejos sabios y prácticos para restaurar relaciones.',
-      coverUrl: 'assets/images/book2.jpg',
-    ),
-  ];
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Book> _books = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getLastBooks();
+  }
+
+  void _getLastBooks() async {
+    var lastBooks = await BookService().getLastBook();
+    setState(() {
+      _books = lastBooks;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    var showProgress = _books.isEmpty;
+    var listLength = showProgress ? 3 : _books.length + 2;
+
     return Container(
       margin: const EdgeInsets.all(16),
       child: ListView.builder(
-        itemCount: _books.length + 2,
+        itemCount: listLength,
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
             return const HeaderWidget();
@@ -38,6 +42,13 @@ class HomeScreen extends StatelessWidget {
           if (index == 1) {
             return const ListItemHeader();
           }
+          if (showProgress) {
+            return const Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
+
           return ListItemBook(_books[index - 2]);
         },
       ),
