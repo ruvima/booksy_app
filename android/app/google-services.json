@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "203200479025",
+    "project_id": "booksy-app-5e61d",
+    "storage_bucket": "booksy-app-5e61d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203200479025:android:d8a461c89069c67da9fa10",
+        "android_client_info": {
+          "package_name": "com.ruvima.booksy_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "203200479025-k3hlfqorioa9bei6bnm96hjap1jttlds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNPJDufSOLDoZyQNUh2Mh2EgJG7iAuahQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "203200479025-k3hlfqorioa9bei6bnm96hjap1jttlds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

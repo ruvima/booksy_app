@@ -45,7 +45,7 @@ class BookCoverItem extends StatefulWidget {
     this._bookId, {
     Key? key,
   }) : super(key: key);
-  final int _bookId;
+  final String _bookId;
 
   @override
   State<BookCoverItem> createState() => _BookCoverItemState();
@@ -60,7 +60,7 @@ class _BookCoverItemState extends State<BookCoverItem> {
     super.initState();
   }
 
-  void _getBook(int bookId) async {
+  void _getBook(String bookId) async {
     var book = await BookService().getBook(bookId);
     setState(() {
       _book = book;

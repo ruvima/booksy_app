@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _getLastBooks() async {
-    var lastBooks = await BookService().getLastBook();
+    var lastBooks = await BookService().getLastBooks();
     setState(() {
       _books = lastBooks;
     });

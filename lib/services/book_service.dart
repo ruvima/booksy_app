@@ -1,36 +1,30 @@
+import 'dart:io';
+
 import 'package:booksy_app/model/book.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookService {
-  static const List<Book> books = [
-    Book(
-      id: 1,
-      title: 'El hombre en busca de sentido',
-      author: 'Viktor E. Frankl',
-      description:
-          'El hombre en busca de sentido es el estremecedor relato en el que Viktor Frankl nos narra su experiencia en los campos de concentración.',
-      coverUrl: 'assets/images/book1.jpg',
-    ),
-    Book(
-      id: 2,
-      title:
-          'ELos 5 lenguajes del amor (edición en español): El Secreto del Amor Que Perdura',
-      author: 'Gary Chapman',
-      description:
-          'Actualizado para reflejar las complejidades de la relaciones hoy en día, esta edición enseña verdades esenciales que realmente dan resultado; además, presenta consejos sabios y prácticos para restaurar relaciones.',
-      coverUrl: 'assets/images/book2.jpg',
-    ),
-  ];
+  final booksRef = FirebaseFirestore.instance.collection('books').withConverter(
+        fromFirestore: (snapshot, _) =>
+            Book.fromJson(snapshot.id, snapshot.data()!),
+        toFirestore: (book, _) => book.toJson(),
+      );
 
-  Future<List<Book>> getLastBook() async {
-    // return Future.value(books.sublist(0, 2));
-    return Future.delayed(const Duration(seconds: 2))
-        .then((value) => Future.value(books.sublist(0, 2)));
+  Future<List<Book>> getLastBooks() async {
+    var result = await booksRef.limit(2).get().then((value) => value);
+    List<Book> books = [];
+    for (var doc in result.docs) {
+      books.add(doc.data());
+    }
+    return Future.value(books);
   }
 
-  Future<Book> getBook(int bookId) async {
-    // return Future.value(books.sublist(0, 2));
-    return Future.delayed(const Duration(seconds: 2)).then((value) =>
-        Future.value(
-            books.firstWhere((bookElement) => bookElement.id == bookId)));
+  Future<Book> getBook(String bookId) async {
+    var result = await booksRef.doc(bookId).get().then((value) => value);
+
+    if (result.exists) {
+      return Future.value(result.data());
+    }
+    throw const HttpException('Book not found');
   }
 }

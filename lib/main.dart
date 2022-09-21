@@ -2,10 +2,15 @@ import 'package:booksy_app/bookshelf/bookshelf_screen.dart';
 import 'package:booksy_app/categories/categories_screen.dart';
 import 'package:booksy_app/home/home_screen.dart';
 import 'package:booksy_app/state.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() => runApp(const BooksyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const BooksyApp());
+}
 
 class BooksyApp extends StatelessWidget {
   const BooksyApp({super.key});
