@@ -1,7 +1,9 @@
 import 'package:booksy_app/bookshelf/bookshelf_screen.dart';
 import 'package:booksy_app/categories/categories_screen.dart';
 import 'package:booksy_app/home/home_screen.dart';
+import 'package:booksy_app/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() => runApp(const BooksyApp());
 
@@ -10,13 +12,18 @@ class BooksyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+    return BlocProvider(
+      create: (_) => BookshelfBloc(
+        BookshelfState([]),
       ),
-      home: const BottomNavigationWidget(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Material App',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        home: const BottomNavigationWidget(),
+      ),
     );
   }
 }
