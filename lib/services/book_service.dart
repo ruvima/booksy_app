@@ -27,4 +27,15 @@ class BookService {
     }
     throw const HttpException('Book not found');
   }
+
+  Future<String> saveBook(String title, String author, String summary) async {
+    final reference = FirebaseFirestore.instance.collection('books');
+    var result = await reference.add({
+      'name': title,
+      'author': author,
+      'summary': summary,
+    });
+
+    return Future.value(result.id);
+  }
 }
