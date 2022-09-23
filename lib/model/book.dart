@@ -32,7 +32,7 @@ class Book {
           json['summary'] as String,
           json.containsKey('coverUrl')
               ? json['coverUrl'] as String
-              : 'assets/images/empty.png',
+              : 'assets/images/empty.jpg',
         );
 
   toJson() {

@@ -132,7 +132,7 @@ class ListItemBook extends StatelessWidget {
                       const SizedBox(height: 15),
                       Text(
                         _book.description,
-                        maxLines: 4,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
