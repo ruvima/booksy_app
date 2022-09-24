@@ -115,6 +115,13 @@ class _AddBookFormState extends State<AddBookForm> {
       _savingBook = true;
     });
     var newBookId = await BookService().saveBook(title, author, summary);
+    if (_imagePath != null) {
+      String imageUrl =
+          await BookService().uploadBookCover(_imagePath!, newBookId);
+
+      await BookService().updateCoverBook(newBookId, imageUrl);
+    }
+
     var bookshelfBloc = context.read<BookshelfBloc>();
     bookshelfBloc.add(AddBookToBookShelf(newBookId));
 

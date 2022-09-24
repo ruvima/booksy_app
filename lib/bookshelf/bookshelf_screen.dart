@@ -114,7 +114,7 @@ class _BookCoverItemState extends State<BookCoverItem> {
         _openBookDetails(_book!, context);
       },
       child: Ink.image(
-        image: AssetImage(_book!.coverUrl),
+        image: _getImageWidget(_book!.coverUrl),
         fit: BoxFit.fill,
       ),
     );
@@ -127,5 +127,13 @@ class _BookCoverItemState extends State<BookCoverItem> {
         builder: (context) => BookDetailsScreen(book),
       ),
     );
+  }
+
+  ImageProvider<Object> _getImageWidget(String coverUrl) {
+    if (coverUrl.contains('http')) {
+      return NetworkImage(coverUrl);
+    } else {
+      return AssetImage(_book!.coverUrl);
+    }
   }
 }

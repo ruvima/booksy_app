@@ -108,9 +108,8 @@ class ListItemBook extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Image.asset(
+                  child: _getImageWidget(
                     _book.coverUrl,
-                    width: 100,
                   ),
                 ),
                 Flexible(
@@ -154,5 +153,19 @@ class ListItemBook extends StatelessWidget {
         builder: (context) => BookDetailsScreen(book),
       ),
     );
+  }
+
+  _getImageWidget(String coverUrl) {
+    if (coverUrl.contains('http')) {
+      return Image.network(
+        coverUrl,
+        width: 100,
+      );
+    } else {
+      return Image.asset(
+        _book!.coverUrl,
+        width: 100,
+      );
+    }
   }
 }

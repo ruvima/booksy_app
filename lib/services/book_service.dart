@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:booksy_app/model/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/cupertino.dart';
 
 class BookService {
   final booksRef = FirebaseFirestore.instance.collection('books').withConverter(
@@ -37,5 +39,30 @@ class BookService {
     });
 
     return Future.value(result.id);
+  }
+
+  Future<String> uploadBookCover(String imagePath, String newBookId) async {
+    try {
+      var newBookRef = 'books/$newBookId.png';
+      File image = File(imagePath);
+      await firebase_storage.FirebaseStorage.instance
+          .ref(newBookRef)
+          .putFile(image);
+
+      return firebase_storage.FirebaseStorage.instance
+          .ref(newBookRef)
+          .getDownloadURL();
+    } on FirebaseException catch (e) {
+      debugPrint(e.message);
+      rethrow;
+    }
+  }
+
+  Future<void> updateCoverBook(String newBookId, String imageUrl) async {
+    final reference =
+        FirebaseFirestore.instance.collection('books').doc(newBookId);
+    return reference.update({
+      'coverUrl': imageUrl,
+    });
   }
 }
